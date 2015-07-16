@@ -7,4 +7,3 @@ var routes = require('./routes');
 Router.run(routes, Router.HashLocation, (Root) => {
   React.render(<Root/>, document.body);
 });
-//Router.run(routes, Handler => React.render(<Handler />, document.body));
