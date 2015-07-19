@@ -20,7 +20,7 @@ var Header = React.createClass({
     };
   },
 
-  handleSubmit: function(e) {
+  handleLogin: function(e) {
     e.preventDefault();
 
     var username = React.findDOMNode(this.refs.username).value.trim();
@@ -28,7 +28,16 @@ var Header = React.createClass({
 
     console.log("username : " + username + ", password : " + password);
 
+    React.findDOMNode(this.refs.username).value = '';
+    React.findDOMNode(this.refs.password).value = '';
+
     UserActions.login(username, password);
+  },
+
+  handleLogout: function(e) {
+    e.preventDefault();
+
+    UserActions.logout(this.state.auth.accessToken);
   },
 
   render: function() {
@@ -37,12 +46,12 @@ var Header = React.createClass({
 
     return (
       <header className="clearfix">
-        <form className={loginFormClass} onSubmit={this.handleSubmit}>
+        <form className={loginFormClass} onSubmit={this.handleLogin}>
           <input type="text" placeholder="Enter username" ref="username" />
           <input type="password" placeholder="Enter password" ref="password" />
           <button type="submit">Sign in</button>
         </form>
-        <span className={welcomeBoxClass}>Hello, {this.state.auth.loggedInUser}! Welcome to Iingyeo!</span>
+        <span className={welcomeBoxClass}>Hello, {this.state.auth.loggedInUser}! Welcome to Iingyeo!&nbsp;&nbsp;<button onClick={this.handleLogout}>Sign out</button></span>
       </header>
     );
   }
