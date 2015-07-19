@@ -5,7 +5,8 @@ var request = require('superagent');
 
 var UserActions = Reflux.createActions({
   'login': { asyncResult: true },
-  'getUser': { asyncResult: true }
+  'getUser': { asyncResult: true },
+  'logout': {asyncResult: true}
 });
 
 UserActions.login.preEmit = function(username, password) {
@@ -53,7 +54,11 @@ UserActions.getUser.preEmit = function(accessToken) {
             .end(function (err, res) {
               if (res.ok) {
                 console.log('get user success : ' + res.text);
-                resolve(res, accessToken);
+
+                resolve({
+                  response: res,
+                  accessToken: accessToken
+                });
               } else {
                 console.log('get user error : ' + res.text);
                 reject(res);
@@ -62,6 +67,29 @@ UserActions.getUser.preEmit = function(accessToken) {
 	})
 	.then(this.completed)
 	.catch(this.failed);
+
+};
+
+UserActions.logout.preEmit = function(accessToken) {
+
+  new Promise((resolve, reject) => {
+    console.log("send logout request by access token : " + accessToken);
+
+      request
+            .post('http://localhost:8080/user/logout')
+            .set('Authorization', 'Bearer ' + accessToken)
+            .end(function (err, res) {
+              if (res.ok) {
+                console.log('logout success : ' + res.text);
+                resolve(res);
+              } else {
+                console.log('logout error : ' + res.text);
+                reject(res);
+              }
+            });
+  })
+  .then(this.completed)
+  .catch(this.failed);
 
 };
 

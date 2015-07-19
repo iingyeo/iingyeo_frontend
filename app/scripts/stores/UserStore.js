@@ -18,7 +18,10 @@ var UserStore = Reflux.createStore({
     // handle login failed
   },
 
-  onGetUserCompleted: function(response, accessToken) {
+  onGetUserCompleted: function(responseObj) {
+    var response = responseObj.response;
+    var accessToken = responseObj.accessToken;
+
     console.log("loggedInUser : " + response.body.name);
 
     this.trigger({
@@ -30,6 +33,24 @@ var UserStore = Reflux.createStore({
 
   onGetUserFailed: function(response) {
     // handle get user failed
+  },
+
+  onLogoutCompleted: function(response) {
+    console.log("logout result : " + response.body);
+
+    if(response.body) {
+      this.trigger({
+        accessToken: null,
+        isLoggedIn: false,
+        loggedInUser: null
+      });
+    } else {
+      console.log("logout failed");  
+    }
+  },
+
+  onLogoutFailed: function(response) {
+    // handle logout failed
   }
 
 
