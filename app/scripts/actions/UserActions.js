@@ -6,8 +6,8 @@ var request = require('superagent');
 var UserActions = Reflux.createActions({
   'login': { asyncResult: true },
   'getUser': { asyncResult: true },
-  'logout': { asyncResult: true},
-  'register': { asyncResult: true}
+  'logout': { asyncResult: true },
+  'register': { asyncResult: true }
 });
 
 UserActions.login.preEmit = function(username, password) {
