@@ -6,7 +6,8 @@ var request = require('superagent');
 var UserActions = Reflux.createActions({
   'login': { asyncResult: true },
   'getUser': { asyncResult: true },
-  'logout': { asyncResult: true}
+  'logout': { asyncResult: true},
+  'register': { asyncResult: true}
 });
 
 UserActions.login.preEmit = function(username, password) {
@@ -30,11 +31,11 @@ UserActions.login.preEmit = function(username, password) {
       		.send('password=' + password)
       		.end(function (err, res) {
         		if (res.ok) {
-          			console.log('login success : ' + res.text);
-          			resolve(res);
+          		console.log('login success : ' + res.text);
+          		resolve(res);
         		} else {
-          			console.log('login error : ' + res.text);
-          			reject(res);
+          		console.log('login error : ' + res.text);
+          		reject(res);
         		}
     		});
 	})
@@ -87,6 +88,33 @@ UserActions.logout.preEmit = function(accessToken) {
                 reject(res);
               }
             });
+  })
+  .then(this.completed)
+  .catch(this.failed);
+
+};
+
+UserActions.register.preEmit = function(username, password) {
+
+  new Promise((resolve, reject) => {
+    console.log("send register request");
+
+      if (!username || !password) {
+        return;
+      }
+
+      request
+          .post('http://localhost:8080/users')
+          .send({ username: username, password: password })
+          .end(function (err, res) {
+            if (res.ok) {
+              console.log('register success : ' + res.text);
+              resolve(res);
+            } else {
+              console.log('register error : ' + res.text);
+              reject(res);
+            }
+        });
   })
   .then(this.completed)
   .catch(this.failed);

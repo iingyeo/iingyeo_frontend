@@ -3,7 +3,7 @@
 var React = require('react');
 var RouteHandler = require('react-router').RouteHandler;
 
-var Header  = require('../components/header.jsx');
+var Header = require('../components/Header.jsx');
 
 var App = React.createClass({
   
