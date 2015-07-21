@@ -3,6 +3,7 @@
 var Reflux = require('reflux');
 
 var UserActions = require('../actions/UserActions');
+var UIActions = require('../actions/UIActions');
 
 var UserStore = Reflux.createStore({
 
@@ -51,6 +52,16 @@ var UserStore = Reflux.createStore({
 
   onLogoutFailed: function(response) {
     // handle logout failed
+  },
+
+  onRegisterCompleted: function(response) {
+    console.log("register result : " + JSON.stringify(response.body));
+
+    UIActions.hideOverlay();
+  },
+
+  onRegisterFailed: function(response) {
+    // handle register failed
   }
 
 

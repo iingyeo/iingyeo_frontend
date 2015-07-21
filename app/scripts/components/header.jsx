@@ -5,6 +5,7 @@ var Reflux = require('reflux');
 
 var UserStore = require('../stores/UserStore');
 var UserActions = require('../actions/UserActions');
+var UIActions = require('../actions/UIActions');
 
 var Header = React.createClass({
 
@@ -41,8 +42,12 @@ var Header = React.createClass({
   },
 
   render: function() {
-    var loginFormClass = React.addons.classSet({hidden: this.state.auth.isLoggedIn });
-    var welcomeBoxClass = React.addons.classSet({hidden: !this.state.auth.isLoggedIn });
+    var loginFormClass = React.addons.classSet({
+      hidden: this.state.auth.isLoggedIn
+    });
+    var welcomeBoxClass = React.addons.classSet({
+      hidden: !this.state.auth.isLoggedIn
+    });
 
     return (
       <header className="clearfix">
@@ -51,6 +56,7 @@ var Header = React.createClass({
           <input type="password" placeholder="Enter password" ref="password" />
           <button type="submit">Sign in</button>
         </form>
+        <button className={loginFormClass} onClick={UIActions.showOverlay.bind(this,'register')}>Register</button>
         <span className={welcomeBoxClass}>Hello, {this.state.auth.loggedInUser}! Welcome to Iingyeo!&nbsp;&nbsp;<button onClick={this.handleLogout}>Sign out</button></span>
       </header>
     );
