@@ -46,7 +46,7 @@ var UserStore = Reflux.createStore({
         loggedInUser: null
       });
     } else {
-      console.log("logout failed");  
+      console.log("logout failed");
     }
   },
 
@@ -55,7 +55,7 @@ var UserStore = Reflux.createStore({
   },
 
   onRegisterCompleted: function(response) {
-    console.log("register result : " + JSON.stringify(response.body));
+    console.log("register result : " + response.text);
 
     UIActions.hideOverlay();
   },
@@ -63,7 +63,6 @@ var UserStore = Reflux.createStore({
   onRegisterFailed: function(response) {
     // handle register failed
   }
-
 
 });
 
