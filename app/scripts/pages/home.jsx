@@ -2,6 +2,7 @@
 
 var React = require('react');
 var Reflux = require('reflux');
+var classnames = require('classnames');
 
 var DomControl = require('../utils/DomControl');
 var UIActions = require('../actions/UIActions');
@@ -48,7 +49,7 @@ var Home = React.createClass({
   },
 
   render: function() {
-  	var overlayClass = React.addons.classSet({
+  	var overlayClass = classnames({
       'md-overlay': true,
       'md-show': this.state.showOverlay
     });

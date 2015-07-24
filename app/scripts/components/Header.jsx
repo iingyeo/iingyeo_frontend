@@ -2,6 +2,7 @@
 
 var React = require('react/addons');
 var Reflux = require('reflux');
+var classnames = require('classnames');
 
 var UserStore = require('../stores/UserStore');
 var UserActions = require('../actions/UserActions');
@@ -42,10 +43,10 @@ var Header = React.createClass({
   },
 
   render: function() {
-    var loginFormClass = React.addons.classSet({
+    var loginFormClass = classnames({
       hidden: this.state.auth.isLoggedIn
     });
-    var welcomeBoxClass = React.addons.classSet({
+    var welcomeBoxClass = classnames({
       hidden: !this.state.auth.isLoggedIn
     });
 
