@@ -3,6 +3,8 @@
 var Reflux = require('reflux');
 var request = require('superagent');
 
+var UIActions = require('./UIActions');
+
 var UserActions = Reflux.createActions({
   'login': { asyncResult: true },
   'getUser': { asyncResult: true },
@@ -11,6 +13,8 @@ var UserActions = Reflux.createActions({
 });
 
 UserActions.login.preEmit = function(username, password) {
+
+  UIActions.showSpinner();
 
   new Promise((resolve, reject) => {
 
@@ -45,7 +49,13 @@ UserActions.login.preEmit = function(username, password) {
 
 };
 
+UserActions.login.completed.preEmit = function() {
+  UIActions.hideSpinner();
+};
+
 UserActions.getUser.preEmit = function(accessToken) {
+
+  UIActions.showSpinner();
 
   new Promise((resolve, reject) => {
 
@@ -73,7 +83,13 @@ UserActions.getUser.preEmit = function(accessToken) {
 
 };
 
+UserActions.getUser.completed.preEmit = function() {
+  UIActions.hideSpinner();
+};
+
 UserActions.logout.preEmit = function(accessToken) {
+
+  UIActions.showSpinner();
 
   new Promise((resolve, reject) => {
 
@@ -97,7 +113,13 @@ UserActions.logout.preEmit = function(accessToken) {
 
 };
 
+UserActions.logout.completed.preEmit = function() {
+  UIActions.hideSpinner();
+};
+
 UserActions.register.preEmit = function(username, password) {
+
+  UIActions.showSpinner();
 
   new Promise((resolve, reject) => {
 
@@ -124,5 +146,9 @@ UserActions.register.preEmit = function(username, password) {
   .catch(this.failed);
 
 };
+
+UserActions.register.completed.preEmit = function() {
+  UIActions.hideSpinner();
+}
 
 module.exports = UserActions;
