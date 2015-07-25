@@ -69,10 +69,7 @@ UserActions.getUser.preEmit = function(accessToken) {
 
           UIActions.hideSpinner();
 
-          resolve({
-            response: res,
-            accessToken: accessToken
-          });
+          resolve(res);
         } else {
           console.log('get user error : ' + res.text);
           reject(res);
