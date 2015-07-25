@@ -35,6 +35,9 @@ UserActions.login.preEmit = function(username, password) {
       .send('username=' + username)
       .send('password=' + password)
       .end(function (err, res) {
+
+        UIActions.hideSpinner();
+
         if (res.ok) {
           console.log('login success : ' + res.text);
           resolve(res);
@@ -47,10 +50,6 @@ UserActions.login.preEmit = function(username, password) {
   .then(this.completed)
   .catch(this.failed);
 
-};
-
-UserActions.login.completed.preEmit = function() {
-  UIActions.hideSpinner();
 };
 
 UserActions.getUser.preEmit = function(accessToken) {
@@ -68,6 +67,8 @@ UserActions.getUser.preEmit = function(accessToken) {
         if (res.ok) {
           console.log('get user success : ' + res.text);
 
+          UIActions.hideSpinner();
+
           resolve({
             response: res,
             accessToken: accessToken
@@ -83,10 +84,6 @@ UserActions.getUser.preEmit = function(accessToken) {
 
 };
 
-UserActions.getUser.completed.preEmit = function() {
-  UIActions.hideSpinner();
-};
-
 UserActions.logout.preEmit = function(accessToken) {
 
   UIActions.showSpinner();
@@ -99,6 +96,8 @@ UserActions.logout.preEmit = function(accessToken) {
       .post('http://localhost:8080/user/logout')
       .set('Authorization', 'Bearer ' + accessToken)
       .end(function (err, res) {
+        UIActions.hideSpinner();
+
         if (res.ok) {
           console.log('logout success : ' + res.text);
           resolve(res);
@@ -111,10 +110,6 @@ UserActions.logout.preEmit = function(accessToken) {
   .then(this.completed)
   .catch(this.failed);
 
-};
-
-UserActions.logout.completed.preEmit = function() {
-  UIActions.hideSpinner();
 };
 
 UserActions.register.preEmit = function(username, password) {
@@ -133,6 +128,8 @@ UserActions.register.preEmit = function(username, password) {
       .post('http://localhost:8080/users')
       .send({ username: username, password: password })
       .end(function (err, res) {
+        UIActions.hideSpinner();
+
         if (res.ok) {
           console.log('register success : ' + res.text);
           resolve(res);
@@ -146,9 +143,5 @@ UserActions.register.preEmit = function(username, password) {
   .catch(this.failed);
 
 };
-
-UserActions.register.completed.preEmit = function() {
-  UIActions.hideSpinner();
-}
 
 module.exports = UserActions;
