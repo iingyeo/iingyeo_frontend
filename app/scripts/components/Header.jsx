@@ -14,11 +14,7 @@ var Header = React.createClass({
 
   getInitialState: function() {
     return {
-      auth : {
-        accessToken: null,
-        isLoggedIn: false,
-        loggedInUser: null,
-      }
+      auth : UserStore.getAuth()
     };
   },
 
@@ -58,7 +54,7 @@ var Header = React.createClass({
           <button type="submit">Sign in</button>
         </form>
         <button className={loginFormClass} onClick={UIActions.showOverlay.bind(this,'register')}>Register</button>
-        <span className={welcomeBoxClass}>Hello, {this.state.auth.loggedInUser}! Welcome to Iingyeo!&nbsp;&nbsp;<button onClick={this.handleLogout}>Sign out</button></span>
+        <span className={welcomeBoxClass}>Hello, {this.state.auth.user.username}! Welcome to Iingyeo!&nbsp;&nbsp;<button onClick={this.handleLogout}>Sign out</button></span>
       </header>
     );
   }

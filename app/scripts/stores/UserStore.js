@@ -9,8 +9,42 @@ var UserStore = Reflux.createStore({
 
   listenables: [UserActions],
 
+  init: function() {
+    this.auth = {
+      accessToken: null,
+      isLoggedIn: false,
+      user: {
+        id: null,
+        username: null,
+        created: null,
+        updated: null
+      }
+    };
+  },
+
+  getAuth: function() {
+    return this.auth;
+  },
+
+  updateAuth: function(auth) {
+    this.auth = auth;
+
+    this.trigger(auth);
+  },
+
   onLoginCompleted: function(response) {
     console.log("access token : " + response.body.access_token);
+
+    this.updateAuth({
+      accessToken: response.body.access_token,
+      isLoggedIn: false,
+      user: {
+        id: null,
+        username: null,
+        created: null,
+        updated: null
+      }
+    });
 
     UserActions.getUser(response.body.access_token);
   },
@@ -19,16 +53,15 @@ var UserStore = Reflux.createStore({
     // handle login failed
   },
 
-  onGetUserCompleted: function(responseObj) {
-    var response = responseObj.response;
-    var accessToken = responseObj.accessToken;
+  onGetUserCompleted: function(response) {
+    var accessToken = this.auth.accessToken;
 
-    console.log("loggedInUser : " + response.body.name);
+    console.log("loggedInUser : " + response.body.username);
 
-    this.trigger({
+    this.updateAuth({
       accessToken: accessToken,
       isLoggedIn: true,
-      loggedInUser: response.body.name
+      user: response.body
     });
   },
 
@@ -40,10 +73,15 @@ var UserStore = Reflux.createStore({
     console.log("logout result : " + response.body);
 
     if(response.body) {
-      this.trigger({
+      this.updateAuth({
         accessToken: null,
         isLoggedIn: false,
-        loggedInUser: null
+        user: {
+          id: null,
+          username: null,
+          created: null,
+          updated: null
+        }
       });
     } else {
       console.log("logout failed");
