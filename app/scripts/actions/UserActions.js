@@ -28,27 +28,27 @@ UserActions.login.preEmit = function(username, password) {
     var secret = '1234';
 
     request
-      .post('http://localhost:8080/oauth/token')
-      .auth(clientId, secret)
-      .send('grant_type=password')
-      .send('scope=read write')
-      .send('username=' + username)
-      .send('password=' + password)
-      .end(function (err, res) {
+        .post('http://localhost:8080/oauth/token')
+        .auth(clientId, secret)
+        .send('grant_type=password')
+        .send('scope=read write')
+        .send('username=' + username)
+        .send('password=' + password)
+        .end(function (err, res) {
 
-        UIActions.hideSpinner();
+          UIActions.hideSpinner();
 
-        if (res.ok) {
-          console.log('login success : ' + res.text);
-          resolve(res);
-        } else {
-          console.log('login error : ' + res.text);
-          reject(res);
-        }
-      });
+          if (res.ok) {
+            console.log('login success : ' + res.text);
+            resolve(res);
+          } else {
+            console.log('login error : ' + res.text);
+            reject(res);
+          }
+        });
   })
-  .then(this.completed)
-  .catch(this.failed);
+      .then(this.completed)
+      .catch(this.failed);
 
 };
 
@@ -61,23 +61,23 @@ UserActions.getUser.preEmit = function(accessToken) {
     console.log("send get user request");
 
     request
-      .get('http://localhost:8080/user')
-      .set('Authorization', 'Bearer ' + accessToken)
-      .end(function (err, res) {
-        if (res.ok) {
-          console.log('get user success : ' + res.text);
+        .get('http://localhost:8080/user')
+        .set('Authorization', 'Bearer ' + accessToken)
+        .end(function (err, res) {
+          if (res.ok) {
+            console.log('get user success : ' + res.text);
 
-          UIActions.hideSpinner();
+            UIActions.hideSpinner();
 
-          resolve(res);
-        } else {
-          console.log('get user error : ' + res.text);
-          reject(res);
-        }
-      });
+            resolve(res);
+          } else {
+            console.log('get user error : ' + res.text);
+            reject(res);
+          }
+        });
   })
-  .then(this.completed)
-  .catch(this.failed);
+      .then(this.completed)
+      .catch(this.failed);
 
 };
 
@@ -90,22 +90,22 @@ UserActions.logout.preEmit = function(accessToken) {
     console.log("send logout request by access token : " + accessToken);
 
     request
-      .post('http://localhost:8080/user/logout')
-      .set('Authorization', 'Bearer ' + accessToken)
-      .end(function (err, res) {
-        UIActions.hideSpinner();
+        .post('http://localhost:8080/user/logout')
+        .set('Authorization', 'Bearer ' + accessToken)
+        .end(function (err, res) {
+          UIActions.hideSpinner();
 
-        if (res.ok) {
-          console.log('logout success : ' + res.text);
-          resolve(res);
-        } else {
-          console.log('logout error : ' + res.text);
-          reject(res);
-        }
-      });
+          if (res.ok) {
+            console.log('logout success : ' + res.text);
+            resolve(res);
+          } else {
+            console.log('logout error : ' + res.text);
+            reject(res);
+          }
+        });
   })
-  .then(this.completed)
-  .catch(this.failed);
+      .then(this.completed)
+      .catch(this.failed);
 
 };
 
@@ -122,22 +122,22 @@ UserActions.register.preEmit = function(username, password) {
     }
 
     request
-      .post('http://localhost:8080/users')
-      .send({ username: username, password: password })
-      .end(function (err, res) {
-        UIActions.hideSpinner();
+        .post('http://localhost:8080/users')
+        .send({ username: username, password: password })
+        .end(function (err, res) {
+          UIActions.hideSpinner();
 
-        if (res.ok) {
-          console.log('register success : ' + res.text);
-          resolve(res);
-        } else {
-          console.log('register error : ' + res.text);
-          reject(res);
-        }
-      });
+          if (res.ok) {
+            console.log('register success : ' + res.text);
+            resolve(res);
+          } else {
+            console.log('register error : ' + res.text);
+            reject(res);
+          }
+        });
   })
-  .then(this.completed)
-  .catch(this.failed);
+      .then(this.completed)
+      .catch(this.failed);
 
 };
 
