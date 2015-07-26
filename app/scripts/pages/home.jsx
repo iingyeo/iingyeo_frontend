@@ -6,8 +6,10 @@ var classnames = require('classnames');
 
 var DomControl = require('../utils/DomControl');
 var UIActions = require('../actions/UIActions');
+
 var Register = require('../components/Register.jsx');
 var Spinner = require('../components/Spinner.jsx');
+var Card = require('../components/Card.jsx');
 
 var Home = React.createClass({
 
@@ -84,6 +86,7 @@ var Home = React.createClass({
         { this.state.showSpinner ? <Spinner /> : null }
         <h1>Iingyeo Home</h1>
         <div className={overlayClass} ref="overlay">{overlayContent}</div>
+        <div><Card /></div>
       </div>
     );
   }

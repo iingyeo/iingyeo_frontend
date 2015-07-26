@@ -4,6 +4,7 @@ var Reflux = require('reflux');
 
 var UserActions = require('../actions/UserActions');
 var UIActions = require('../actions/UIActions');
+var CardActions = require('../actions/CardActions');
 
 var UserStore = Reflux.createStore({
 
@@ -47,6 +48,7 @@ var UserStore = Reflux.createStore({
     });
 
     UserActions.getUser(response.body.access_token);
+    CardActions.getCard();
   },
 
   onLoginFailed: function(response) {
