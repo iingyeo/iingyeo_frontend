@@ -11,11 +11,13 @@ var Home = require('./pages/home.jsx');
 var NotFound = require('./pages/notFound.jsx');
 
 var routes = (
+  /* beautify preserve:start */
   <Route name="app" path="/" handler={ App }>
     <Route name="home" handler={ Home } />
     <DefaultRoute handler={ Home } />
     <NotFoundRoute handler={ NotFound } />
   </Route>
+  /* beautify preserve:end */
 );
 
 module.exports = routes;

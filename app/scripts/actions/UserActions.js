@@ -6,10 +6,18 @@ var request = require('superagent');
 var UIActions = require('./UIActions');
 
 var UserActions = Reflux.createActions({
-  'login': { asyncResult: true },
-  'getUser': { asyncResult: true },
-  'logout': { asyncResult: true },
-  'register': { asyncResult: true }
+  'login': {
+    asyncResult: true
+  },
+  'getUser': {
+    asyncResult: true
+  },
+  'logout': {
+    asyncResult: true
+  },
+  'register': {
+    asyncResult: true
+  }
 });
 
 UserActions.login.preEmit = function(username, password) {
@@ -18,23 +26,23 @@ UserActions.login.preEmit = function(username, password) {
 
   new Promise((resolve, reject) => {
 
-    console.log("send login request");
+      console.log("send login request");
 
-    if (!username || !password) {
-      return;
-    }
+      if (!username || !password) {
+        return;
+      }
 
-    var clientId = 'iingyeo';
-    var secret = '1234';
+      var clientId = 'iingyeo';
+      var secret = '1234';
 
-    request
+      request
         .post('http://localhost:8080/oauth/token')
         .auth(clientId, secret)
         .send('grant_type=password')
         .send('scope=read write')
         .send('username=' + username)
         .send('password=' + password)
-        .end(function (err, res) {
+        .end(function(err, res) {
 
           UIActions.hideSpinner();
 
@@ -46,9 +54,9 @@ UserActions.login.preEmit = function(username, password) {
             reject(res);
           }
         });
-  })
-      .then(this.completed)
-      .catch(this.failed);
+    })
+    .then(this.completed)
+    .catch(this.failed);
 
 };
 
@@ -58,12 +66,12 @@ UserActions.getUser.preEmit = function(accessToken) {
 
   new Promise((resolve, reject) => {
 
-    console.log("send get user request");
+      console.log("send get user request");
 
-    request
+      request
         .get('http://localhost:8080/user')
         .set('Authorization', 'Bearer ' + accessToken)
-        .end(function (err, res) {
+        .end(function(err, res) {
           if (res.ok) {
             console.log('get user success : ' + res.text);
 
@@ -75,9 +83,9 @@ UserActions.getUser.preEmit = function(accessToken) {
             reject(res);
           }
         });
-  })
-      .then(this.completed)
-      .catch(this.failed);
+    })
+    .then(this.completed)
+    .catch(this.failed);
 
 };
 
@@ -87,12 +95,12 @@ UserActions.logout.preEmit = function(accessToken) {
 
   new Promise((resolve, reject) => {
 
-    console.log("send logout request by access token : " + accessToken);
+      console.log("send logout request by access token : " + accessToken);
 
-    request
+      request
         .post('http://localhost:8080/user/logout')
         .set('Authorization', 'Bearer ' + accessToken)
-        .end(function (err, res) {
+        .end(function(err, res) {
           UIActions.hideSpinner();
 
           if (res.ok) {
@@ -103,9 +111,9 @@ UserActions.logout.preEmit = function(accessToken) {
             reject(res);
           }
         });
-  })
-      .then(this.completed)
-      .catch(this.failed);
+    })
+    .then(this.completed)
+    .catch(this.failed);
 
 };
 
@@ -115,16 +123,19 @@ UserActions.register.preEmit = function(username, password) {
 
   new Promise((resolve, reject) => {
 
-    console.log("send register request");
+      console.log("send register request");
 
-    if (!username || !password) {
-      return;
-    }
+      if (!username || !password) {
+        return;
+      }
 
-    request
+      request
         .post('http://localhost:8080/users')
-        .send({ username: username, password: password })
-        .end(function (err, res) {
+        .send({
+          username: username,
+          password: password
+        })
+        .end(function(err, res) {
           UIActions.hideSpinner();
 
           if (res.ok) {
@@ -135,9 +146,9 @@ UserActions.register.preEmit = function(username, password) {
             reject(res);
           }
         });
-  })
-      .then(this.completed)
-      .catch(this.failed);
+    })
+    .then(this.completed)
+    .catch(this.failed);
 
 };
 

@@ -74,7 +74,7 @@ var UserStore = Reflux.createStore({
   onLogoutCompleted: function(response) {
     console.log("logout result : " + response.body);
 
-    if(response.body) {
+    if (response.body) {
       this.updateAuth({
         accessToken: null,
         isLoggedIn: false,

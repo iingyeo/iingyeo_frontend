@@ -17,18 +17,18 @@ var Spinner = React.createClass({
       barStyle.WebkitTransform = barStyle.transform =
         'rotate(' + (i * 30) + 'deg) translate(146%)';
       bars.push(
-        /* jshint ignore:start */
+        /* beautify preserve:start */
         <div style={ barStyle } className="react-spinner_bar" key={ i } />
-        /* jshint ignore:end */
+        /* beautify preserve:end */
       );
     }
 
     return (
-      /* jshint ignore:start */
+      /* beautify preserve:start */
       <div { ...this.props } className="react-spinner">
                 { bars }
       </div>
-      /* jshint ignore:end */
+      /* beautify preserve:end */
 
     );
   }

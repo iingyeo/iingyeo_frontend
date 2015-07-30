@@ -6,43 +6,43 @@ var CardActions = require('../actions/CardActions');
 
 var CardStore = Reflux.createStore({
 
-    listenables: [CardActions],
+  listenables: [CardActions],
 
-    init: function () {
-        this.cards = {
-            totalPage: null,
-            totalCount: null,
-            pageNum: null,
-            card: [{
-                id: null,
-                userId: null,
-                text: null,
-                backgroundUrl: null
-            }]
-        };
-    },
+  init: function() {
+    this.cards = {
+      totalPage: null,
+      totalCount: null,
+      pageNum: null,
+      card: [{
+        id: null,
+        userId: null,
+        text: null,
+        backgroundUrl: null
+      }]
+    };
+  },
 
-    getCards: function () {
-        return this.cards;
-    },
+  getCards: function() {
+    return this.cards;
+  },
 
-    updateCards: function (cards) {
-        this.cards = cards;
-        this.trigger(cards);
-    },
+  updateCards: function(cards) {
+    this.cards = cards;
+    this.trigger(cards);
+  },
 
-    onGetCardCompleted: function (response) {
-        console.log("get card count : " + response.body.cards.length);
+  onGetCardCompleted: function(response) {
+    console.log("get card count : " + response.body.cards.length);
 
-        this.updateCards({
-            totalPage: response.body.totalPage,
-            totalCount: response.body.totalCount,
-            pageNum: response.body.pageNum,
-            card: response.body.cards
-        });
-    },
+    this.updateCards({
+      totalPage: response.body.totalPage,
+      totalCount: response.body.totalCount,
+      pageNum: response.body.pageNum,
+      card: response.body.cards
+    });
+  },
 
-    onGetCardFailed: function (response) {}
+  onGetCardFailed: function(response) {}
 });
 
 module.exports = CardStore;
