@@ -15,7 +15,7 @@ var Register = React.createClass({
 
     console.log("username : " + username + ", password : " + password + ", confirm password : " + confirmPassword);
 
-    if(password !== confirmPassword) {
+    if (password !== confirmPassword) {
       alert("Check your password!");
       return;
     }
@@ -29,6 +29,7 @@ var Register = React.createClass({
 
   render: function() {
     return (
+      /* beautify preserve:start */
       <div className="md-modal" id="overlay-content">
         <form className="register-form text-left">
           <h1>Register</h1>
@@ -41,6 +42,7 @@ var Register = React.createClass({
           <button onClick={this.registerAccount}>Register</button><br /><br />
         </form>
       </div>
+      /* beautify preserve:end */
     );
   }
 });
