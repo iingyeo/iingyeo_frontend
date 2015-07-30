@@ -1,7 +1,7 @@
 {
-  "name": "webkid-react-starterkit",
-  "version": "0.3.1",
-  "description": "Lightweight starting point for a react web app.",
+  "name": "iingyeo_frontend",
+  "version": "0.0.1",
+  "description": "Iingyeo SNS Frontend",
   "keywords": [
     "react",
     "starterkit",
@@ -43,7 +43,7 @@
     "classnames": "^1.2.0",
     "react": "^0.13.3",
     "react-router": "^0.13.3",
-    "react-bootstrap":"^0.24.2",
+    "react-bootstrap": "^0.24.2",
     "reflux": "^0.2.7",
     "superagent": "~0.21.0",
     "superagent-csrf": "^1.0.0",
@@ -68,5 +68,9 @@
       "<rootDir>/node_modules/object-assign",
       "<rootDir>/test-utils/stubRouterContext.jsx"
     ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:iingyeo/iingyeo_frontend.git"
   }
 }
