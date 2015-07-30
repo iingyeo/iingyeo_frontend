@@ -7,6 +7,8 @@ var environment = $.util.env.type || 'development';
 var isProduction = environment === 'production';
 var webpackConfig = require('./webpack.config.js').getConfig(environment);
 
+var bootstrap = require('bootstrap-styl');
+
 var port = $.util.env.port || 1337;
 var app = 'app/';
 var dist = 'dist/';
@@ -49,7 +51,9 @@ gulp.task('styles',function(cb) {
       // only compress if we are in production
       compress: isProduction,
       // include 'normal' css into main.css
-      'include css' : true
+      'include css' : true,
+      // use bootstrap
+      use: bootstrap()
     }))
     .pipe($.autoprefixer({browsers: autoprefixerBrowsers})) 
     .pipe(gulp.dest(dist + 'css/'))

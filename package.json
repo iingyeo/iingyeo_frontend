@@ -40,6 +40,7 @@
     "webpack": "^1.7.3"
   },
   "dependencies": {
+    "bootstrap-styl": "^4.0.5",
     "classnames": "^1.2.0",
     "react": "^0.13.3",
     "react-router": "^0.13.3",
