@@ -18,5 +18,4 @@ var DomControl = {
 
 };
 
-
 module.exports = DomControl;
