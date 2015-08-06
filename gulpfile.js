@@ -1,4 +1,6 @@
 var gulp = require('gulp');
+var mocha = require('gulp-mocha');
+var gutil = require('gulp-util');
 var path = require('path');
 var $ = require('gulp-load-plugins')();
 var del = require('del');
@@ -9,12 +11,15 @@ var webpackConfig = require('./webpack.config.js').getConfig(environment);
 
 var bootstrap = require('bootstrap-styl');
 
+// Compiler for React tests
+require('./test-utils/compiler.js');
+
 var port = $.util.env.port || 1337;
 var app = 'app/';
 var dist = 'dist/';
 
 // https://github.com/ai/autoprefixer
-var autoprefixerBrowsers = [                 
+var autoprefixerBrowsers = [
   'ie >= 9',
   'ie_mob >= 10',
   'ff >= 30',
@@ -31,7 +36,9 @@ gulp.task('scripts', function() {
     .pipe($.webpack(webpackConfig))
     .pipe(isProduction ? $.uglifyjs() : $.util.noop())
     .pipe(gulp.dest(dist + 'js/'))
-    .pipe($.size({ title : 'js' }))
+    .pipe($.size({
+      title: 'js'
+    }))
     .pipe($.connect.reload());
 });
 
@@ -39,11 +46,13 @@ gulp.task('scripts', function() {
 gulp.task('html', function() {
   return gulp.src(app + 'index.html')
     .pipe(gulp.dest(dist))
-    .pipe($.size({ title : 'html' }))
+    .pipe($.size({
+      title: 'html'
+    }))
     .pipe($.connect.reload());
 });
 
-gulp.task('styles',function(cb) {
+gulp.task('styles', function(cb) {
 
   // convert stylus to css
   return gulp.src(app + 'stylus/main.styl')
@@ -51,13 +60,17 @@ gulp.task('styles',function(cb) {
       // only compress if we are in production
       compress: isProduction,
       // include 'normal' css into main.css
-      'include css' : true,
+      'include css': true,
       // use bootstrap
       use: bootstrap()
     }))
-    .pipe($.autoprefixer({browsers: autoprefixerBrowsers})) 
+    .pipe($.autoprefixer({
+      browsers: autoprefixerBrowsers
+    }))
     .pipe(gulp.dest(dist + 'css/'))
-    .pipe($.size({ title : 'css' }))
+    .pipe($.size({
+      title: 'css'
+    }))
     .pipe($.connect.reload());
 
 });
@@ -76,7 +89,9 @@ gulp.task('serve', function() {
 // copy images
 gulp.task('images', function(cb) {
   return gulp.src(app + 'images/**/*.{png,jpg,jpeg,gif}')
-    .pipe($.size({ title : 'images' }))
+    .pipe($.size({
+      title: 'images'
+    }))
     .pipe(gulp.dest(dist + 'images/'));
 });
 
@@ -84,8 +99,9 @@ gulp.task('images', function(cb) {
 gulp.task('watch', function() {
   gulp.watch(app + 'stylus/*.styl', ['styles']);
   gulp.watch(app + 'index.html', ['html']);
-  gulp.watch(app + 'scripts/**/*.js', ['scripts']);
-  gulp.watch(app + 'scripts/**/*.jsx', ['scripts']);
+  gulp.watch(app + 'scripts/**/*.js', ['scripts', 'mocha']);
+  gulp.watch(app + 'scripts/**/*.jsx', ['scripts', 'mocha']);
+  gulp.watch('test/**/*.js', ['scripts', 'mocha']);
 });
 
 // remove bundels
@@ -93,11 +109,20 @@ gulp.task('clean', function(cb) {
   del([dist], cb);
 });
 
+gulp.task('mocha', function() {
+  return gulp.src(['test/*.js'], {
+      read: false
+    })
+    .pipe(mocha({
+      reporter: 'list'
+    }))
+    .on('error', gutil.log);
+});
 
 // by default build project and then watch files in order to trigger livereload
-gulp.task('default', ['build', 'serve', 'watch']);
+gulp.task('default', ['build', 'mocha', 'serve', 'watch']);
 
 // waits until clean is finished then builds the project
-gulp.task('build', ['clean'], function(){
-  gulp.start(['images', 'html','scripts','styles']);
+gulp.task('build', ['clean'], function() {
+  gulp.start(['images', 'html', 'scripts', 'styles']);
 });
