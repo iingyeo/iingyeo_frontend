@@ -9,7 +9,7 @@ var UIActions = require('../actions/UIActions');
 
 var Register = require('../components/Register.jsx');
 var Spinner = require('../components/Spinner.jsx');
-var Card = require('../components/Card.jsx');
+var Card = require('../components/CardList.jsx');
 var CardRegister = require('../components/CardRegister.jsx');
 
 var Home = React.createClass({
@@ -80,9 +80,9 @@ var Home = React.createClass({
     var overlayContent = null;
 
     if (this.state.overlayType === 'register') {
-      overlayContent = < Register / > ;
+      overlayContent = < Register />;
     } else if (this.state.overlayType === 'cardRegister') {
-      overlayContent = < CardRegister / > ;
+      overlayContent = < CardRegister /> ;
     }
 
     return (
