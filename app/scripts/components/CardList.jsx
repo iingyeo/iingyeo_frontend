@@ -42,26 +42,6 @@ var CardList = React.createClass({
 
       cardNodes.push(<Card card={this.state.cards.card[i]}/>);
     }
-/*
-    cardNodes = this.state.cards.card.map((card) => {
-      var url = card.backgroundUrl;
-
-      var style = {
-        color: 'black',
-        fontSize: 50,
-        height: 300,
-        width: 600,
-        backgroundImage: 'url(' + url + ')',
-        backgroundSize: '80% 80%',
-        backgroundRepeat: 'no-repeat'
-      };
-
-      return (
-        
-          <Card key={card.id} card={card}/>
-      );
-    });
-*/
 
     return (
       /* beautify preserve:start */
