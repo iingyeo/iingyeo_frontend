@@ -48,7 +48,7 @@ var UserStore = Reflux.createStore({
     });
 
     UserActions.getUser(response.body.access_token);
-    CardActions.getCard();
+    CardActions.getCard(response.body.access_token);
   },
 
   onLoginFailed: function(response) {
@@ -73,6 +73,8 @@ var UserStore = Reflux.createStore({
 
   onLogoutCompleted: function(response) {
     console.log("logout result : " + response.body);
+
+    CardActions.clear();
 
     if (response.body) {
       this.updateAuth({

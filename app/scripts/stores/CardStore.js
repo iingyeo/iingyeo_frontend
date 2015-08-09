@@ -31,6 +31,13 @@ var CardStore = Reflux.createStore({
     this.trigger(cards);
   },
 
+  clear: function() {
+    console.log("clear card list");
+
+    this.cards.card = [{}];
+    this.trigger(this.cards);
+  },
+
   onGetCardCompleted: function(response) {
     console.log("get card count : " + response.body.cards.length);
 

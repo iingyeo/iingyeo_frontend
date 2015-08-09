@@ -8,10 +8,11 @@ var UIActions = require('./UIActions');
 var CardActions = Reflux.createActions({
   'getCard': {
     asyncResult: true
-  }
+  },
+  'clear': {}
 });
 
-CardActions.getCard.preEmit = function() {
+CardActions.getCard.preEmit = function(accessToken) {
 
   UIActions.showSpinner();
 
@@ -21,6 +22,7 @@ CardActions.getCard.preEmit = function() {
 
       request
         .get('http://localhost:8080/cards')
+        .set('Authorization', 'Bearer ' + accessToken)
         .end(function(err, res) {
 
           UIActions.hideSpinner();
