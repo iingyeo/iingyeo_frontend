@@ -14,70 +14,70 @@ var CardRegister = require('../components/CardRegister.jsx');
 
 var Home = React.createClass({
 
-  mixins: [
-    DomControl,
-    Reflux.listenTo(UIActions.showOverlay, 'showOverlay'),
-    Reflux.listenTo(UIActions.hideOverlay, 'hideOverlay'),
-    Reflux.listenTo(UIActions.showSpinner, 'showSpinner'),
-    Reflux.listenTo(UIActions.hideSpinner, 'hideSpinner')
-  ],
+    mixins: [
+        DomControl,
+        Reflux.listenTo(UIActions.showOverlay, 'showOverlay'),
+        Reflux.listenTo(UIActions.hideOverlay, 'hideOverlay'),
+        Reflux.listenTo(UIActions.showSpinner, 'showSpinner'),
+        Reflux.listenTo(UIActions.hideSpinner, 'hideSpinner')
+    ],
 
-  getInitialState: function() {
+    getInitialState: function () {
 
-    return {
-      showOverlay: false,
-      overlayType: 'register',
-      showSpinner: false
-    };
+        return {
+            showOverlay: false,
+            overlayType: 'register',
+            showSpinner: false
+        };
 
-  },
+    },
 
-  showOverlay: function(type) {
+    showOverlay: function (type) {
 
-    var overlay = this.refs.overlay.getDOMNode();
-    overlay.addEventListener('click', this.hideOverlayListener);
+        var overlay = this.refs.overlay.getDOMNode();
+        overlay.addEventListener('click', this.hideOverlayListener);
 
-    this.setState({
-      overlayType: type,
-      showOverlay: true
-    });
-  },
+        this.setState({
+            overlayType: type,
+            showOverlay: true
+        });
+    },
 
-  hideOverlayListener: function(e) {
-    if (!this.isChildNodeOf(e.target, ['overlay-content'])) {
-      this.hideOverlay();
-    }
-  },
+    hideOverlayListener: function (e) {
+        if (!this.isChildNodeOf(e.target, ['overlay-content'])) {
+            this.hideOverlay();
+        }
+    },
 
-  hideOverlay: function() {
-    this.setState({
-      showOverlay: false
-    });
-  },
+    hideOverlay: function () {
+        this.setState({
+            showOverlay: false
+        });
+    },
 
-  showSpinner: function() {
-    console.log('call showSpinner');
+    showSpinner: function () {
+        console.log('call showSpinner');
 
-    this.setState({
-      showSpinner: true
-    });
-  },
+        this.setState({
+            showSpinner: true
+        });
+    },
 
-  hideSpinner: function() {
-    console.log('call hideSpinner');
+    hideSpinner: function () {
+        console.log('call hideSpinner');
 
-    this.setState({
-      showSpinner: false
-    });
-  },
+        this.setState({
+            showSpinner: false
+        });
+    },
 
-  render: function() {
-    var overlayClass = classnames({
-      'md-overlay': true,
-      'md-show': this.state.showOverlay
-    });
+    render: function () {
+        var overlayClass = classnames({
+            'md-overlay': true,
+            'md-show': this.state.showOverlay
+        });
 
-    var overlayContent = null;
+        var overlayContent = null;
 
     if (this.state.overlayType === 'register') {
       overlayContent = < Register />;
@@ -85,18 +85,18 @@ var Home = React.createClass({
       overlayContent = < CardRegister /> ;
     }
 
-    return (
-      /* beautify preserve:start */
-      <div>
-        { this.state.showSpinner ? <Spinner /> : null }
-        <h1>Iingyeo Home</h1>
+        return (
+            /* beautify preserve:start */
+            <div>
+                { this.state.showSpinner ? <Spinner /> : null }
+                <h1>Iingyeo Home</h1>
 
-        <div className={overlayClass} ref="overlay">{overlayContent}</div>
-        <div><Card /></div>
-      </div>
-      /* beautify preserve:end */
-    );
-  }
+                <div className={overlayClass} ref="overlay">{overlayContent}</div>
+                <div><Card /></div>
+            </div>
+            /* beautify preserve:end */
+        );
+    }
 
 });
 

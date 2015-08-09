@@ -3,6 +3,7 @@
 var Reflux = require('reflux');
 
 var CardActions = require('../actions/CardActions');
+var UIActions = require('../actions/UIActions');
 
 var CardStore = Reflux.createStore({
 
@@ -49,7 +50,13 @@ var CardStore = Reflux.createStore({
     });
   },
 
-  onGetCardFailed: function(response) {}
+  onGetCardFailed: function(response) {},
+
+  onCreateCard: function (response) {
+    console.log("register card result : " + response.text);
+
+    UIActions.hideOverlay();
+  },
 });
 
 module.exports = CardStore;
