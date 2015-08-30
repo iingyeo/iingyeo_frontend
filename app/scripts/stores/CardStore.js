@@ -5,6 +5,8 @@ var Reflux = require('reflux');
 var CardActions = require('../actions/CardActions');
 var UIActions = require('../actions/UIActions');
 
+var UserStore = require('../stores/UserStore');
+
 var CardStore = Reflux.createStore({
 
   listenables: [CardActions],
@@ -56,6 +58,9 @@ var CardStore = Reflux.createStore({
     console.log("register card result : " + response.text);
 
     UIActions.hideOverlay();
+
+    var auth = UserStore.getAuth();
+    CardActions.getCard(auth.accessToken);
   },
 });
 
