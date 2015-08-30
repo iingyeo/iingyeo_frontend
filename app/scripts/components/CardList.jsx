@@ -35,7 +35,7 @@ var CardList = React.createClass({
         fontSize: 50,
         height: 300,
         width: 600,
-        backgroundImage: 'url(' + url + ')',
+        backgroundImage: url,
         backgroundSize: '80% 80%',
         backgroundRepeat: 'no-repeat'
       };
@@ -65,7 +65,7 @@ var Card = React.createClass({
       fontSize: 50,
       height: 300,
       width: 600,
-      backgroundImage: 'url(' + url + ')',
+      backgroundImage: url,
       backgroundSize: '80% 80%',
       backgroundRepeat: 'no-repeat'
     };
