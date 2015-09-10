@@ -30,7 +30,7 @@ var UserStore = Reflux.createStore({
     var cookies = cookie.parse(document.cookie);
     console.log("access token in the cookie : " + cookies.accessToken);
 
-    if (cookies.accessToken) {
+    if (cookies.accessToken && !this.auth.accessToken) {
       this.updateAuth({
         accessToken: cookies.accessToken,
         isLoggedIn: false,
