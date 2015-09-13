@@ -19,7 +19,6 @@ var CardList = React.createClass({
   },
 
   render: function() {
-
     var cardNodes = [];
 
     for (var i = 0; i < this.state.cards.totalCount; i++) {
@@ -27,30 +26,15 @@ var CardList = React.createClass({
       if (typeof this.state.cards.card[i] == "undefined") {
         continue;
       }
-      
-      var url = this.state.cards.card[i].backgroundUrl;
 
-      var style = {
-        color: 'black',
-        fontSize: 50,
-        height: 300,
-        width: 600,
-        backgroundImage: url,
-        backgroundSize: '80% 80%',
-        backgroundRepeat: 'no-repeat'
-      };
-
-      cardNodes.push(<Card card={this.state.cards.card[i]}/>);
+      cardNodes.push(<Col xs={6}><Card card={this.state.cards.card[i]}/></Col>);
     }
 
     return (
       /* beautify preserve:start */
-        <Grid>
-
-          {cardNodes}
-
-        </Grid>
-
+          <Grid>
+            {cardNodes}
+          </Grid>
       /* beautify preserve:end */
     );
   }
@@ -62,18 +46,16 @@ var Card = React.createClass({
 
     var style = {
       color: 'black',
-      fontSize: 50,
+      fontSize: 20,
       height: 300,
-      width: 600,
+      width: 500,
       backgroundImage: url,
-      backgroundSize: '80% 80%',
+      backgroundSize: '90% 90%',
       backgroundRepeat: 'no-repeat'
     };
 
     return (
-      <Col>
         <div key={this.props.card.id} style={style}>{this.props.card.text}</div>
-       </Col>
      );
   }
 });
