@@ -9,7 +9,7 @@ var UIActions = require('../actions/UIActions');
 
 var Register = require('../components/Register.jsx');
 var Spinner = require('../components/Spinner.jsx');
-var Card = require('../components/CardList.jsx');
+var CardList = require('../components/CardList.jsx');
 var CardRegister = require('../components/CardRegister.jsx');
 
 var Home = React.createClass({
@@ -92,7 +92,7 @@ var Home = React.createClass({
                 <h1>Iingyeo Home</h1>
 
                 <div className={overlayClass} ref="overlay">{overlayContent}</div>
-                <div><Card /></div>
+                <div><CardList /></div>
             </div>
             /* beautify preserve:end */
         );
