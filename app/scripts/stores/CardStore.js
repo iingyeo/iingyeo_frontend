@@ -54,7 +54,7 @@ var CardStore = Reflux.createStore({
 
   onGetCardFailed: function(response) {},
 
-  onCreateCard: function (response) {
+  onCreateCardCompleted: function(response) {
     console.log("register card result : " + response.text);
 
     UIActions.hideOverlay();
@@ -62,6 +62,25 @@ var CardStore = Reflux.createStore({
     var auth = UserStore.getAuth();
     CardActions.getCard(auth.accessToken);
   },
+
+  onCreateChildCardCompleted: function(response) {
+    console.log("register child card result : " + response.text);
+
+    UIActions.hideOverlay();
+
+    var auth = UserStore.getAuth();
+    CardActions.getCard(auth.accessToken);
+  },
+
+  onLikeCardCompleted: function(response) {
+    console.log("like card result : " + response.text);
+
+    UIActions.hideOverlay();
+
+    var auth = UserStore.getAuth();
+    CardActions.getCard(auth.accessToken);
+  }
+
 });
 
 module.exports = CardStore;

@@ -6,7 +6,10 @@ var Grid = require('react-bootstrap').Grid;
 var Row = require('react-bootstrap').Row;
 var Col = require('react-bootstrap').Col;
 
+var CardAction = require('../actions/CardActions');
+var UserStore = require('../stores/UserStore');
 var CardStore = require('../stores/CardStore');
+var UIActions = require('../actions/UIActions');
 
 var CardList = React.createClass({
 
@@ -41,6 +44,16 @@ var CardList = React.createClass({
 });
 
 var Card = React.createClass({
+  handleLike: function(e) {
+    e.preventDefault();
+
+    console.debug("clicked like for id : " + this.props.card.id);
+
+    var auth = UserStore.getAuth();
+
+    CardAction.likeCard(auth.accessToken, this.props.card.id);
+  },
+
   render: function() {
     var url = this.props.card.backgroundUrl;
 
@@ -55,8 +68,16 @@ var Card = React.createClass({
     };
 
     return (
-        <div key={this.props.card.id} style={style}>{this.props.card.text}</div>
-     );
+      /* beautify preserve:start */
+      <div key={this.props.card.id} style={style}>
+        <div>{this.props.card.text}</div>
+        <div>
+          <button onClick={UIActions.showOverlay.bind(this,'childCardRegister', this.props.card.id)}>Reply({this.props.card.childCardCount})</button>
+          <button onClick={this.handleLike}>Like({this.props.card.likeUserCount})</button>
+        </div>
+      </div>
+      /* beautify preserve:end */
+    );
   }
 });
 

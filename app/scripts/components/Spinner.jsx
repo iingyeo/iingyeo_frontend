@@ -5,8 +5,6 @@ var React = require('react');
 var Spinner = React.createClass({
 
   render: function() {
-    console.log('render Spinner');
-
     var bars = [];
     var barStyle;
 

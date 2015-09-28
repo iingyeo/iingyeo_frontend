@@ -27,7 +27,14 @@ var CardRegister = React.createClass({
 
         var auth = UserStore.getAuth();
 
-        CardAction.createCard(auth.accessToken, text, backgroundUrl);
+        console.log("parentCardId : " + this.props.parentCardId);
+
+        if(this.props.parentCardId) {
+            CardAction.createChildCard(auth.accessToken, text, backgroundUrl, this.props.parentCardId);
+        } else {
+            CardAction.createCard(auth.accessToken, text, backgroundUrl);
+        }
+
     },
 
     render: function () {
