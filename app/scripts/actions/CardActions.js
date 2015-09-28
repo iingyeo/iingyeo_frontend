@@ -12,6 +12,12 @@ var CardActions = Reflux.createActions({
     'createCard': {
         asyncResult: true
     },
+    'createChildCard': {
+        asyncResult: true
+    },
+    'likeCard': {
+        asyncResult: true
+    },
   'clear': {}
 });
 
@@ -43,7 +49,7 @@ CardActions.getCard.preEmit = function(accessToken) {
         .catch(this.failed);
 };
 
-CardActions.createCard.preEmit = function (accessToken, text, backgroundUrl) {
+CardActions.createCard.preEmit = function(accessToken, text, backgroundUrl) {
 
     UIActions.showSpinner();
 
@@ -72,4 +78,61 @@ CardActions.createCard.preEmit = function (accessToken, text, backgroundUrl) {
         .then(this.completed)
         .catch(this.failed);
 }
+
+CardActions.createChildCard.preEmit = function(accessToken, text, backgroundUrl, parentCardId) {
+
+    UIActions.showSpinner();
+
+    new Promise((resolve, reject) => {
+
+        request
+            .post('http://localhost:8080/cards/' + parentCardId)
+            .set('Authorization', 'Bearer ' + accessToken)
+            .send({
+                text: text,
+                backgroundUrl: backgroundUrl
+            })
+            .end(function (err, res) {
+
+                UIActions.hideSpinner();
+
+                if (res.ok) {
+                    console.log('create child Card success : ' + res.text);
+                    resolve(res);
+                } else {
+                    console.log('create child Card error : ' + res.text);
+                    reject(res);
+                }
+            });
+    })
+        .then(this.completed)
+        .catch(this.failed);
+}
+
+CardActions.likeCard.preEmit = function(accessToken, cardId) {
+
+    UIActions.showSpinner();
+
+    new Promise((resolve, reject) => {
+
+        request
+            .put('http://localhost:8080/cards/' + cardId + '/like')
+            .set('Authorization', 'Bearer ' + accessToken)
+            .end(function (err, res) {
+
+                UIActions.hideSpinner();
+
+                if (res.ok) {
+                    console.log('like Card success : ' + res.text);
+                    resolve(res);
+                } else {
+                    console.log('like Card error : ' + res.text);
+                    reject(res);
+                }
+            });
+    })
+        .then(this.completed)
+        .catch(this.failed);
+}
+
 module.exports = CardActions;

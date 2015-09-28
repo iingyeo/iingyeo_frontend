@@ -27,20 +27,23 @@ var Home = React.createClass({
         return {
             showOverlay: false,
             overlayType: 'register',
-            showSpinner: false
+            showSpinner: false,
+            parentCardId: null
         };
 
     },
 
-    showOverlay: function (type) {
+    showOverlay: function (type, parentCardId) {
 
         var overlay = this.refs.overlay.getDOMNode();
         overlay.addEventListener('click', this.hideOverlayListener);
 
         this.setState({
             overlayType: type,
-            showOverlay: true
+            showOverlay: true,
+            parentCardId: parentCardId
         });
+
     },
 
     hideOverlayListener: function (e) {
@@ -56,16 +59,12 @@ var Home = React.createClass({
     },
 
     showSpinner: function () {
-        console.log('call showSpinner');
-
         this.setState({
             showSpinner: true
         });
     },
 
     hideSpinner: function () {
-        console.log('call hideSpinner');
-
         this.setState({
             showSpinner: false
         });
@@ -82,7 +81,9 @@ var Home = React.createClass({
     if (this.state.overlayType === 'register') {
       overlayContent = < Register />;
     } else if (this.state.overlayType === 'cardRegister') {
-      overlayContent = < CardRegister /> ;
+      overlayContent = < CardRegister />;
+    } else if (this.state.overlayType === 'childCardRegister') {
+      overlayContent = < CardRegister parentCardId={this.state.parentCardId} />;
     }
 
         return (
