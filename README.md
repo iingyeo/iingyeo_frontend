@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/iingyeo/iingyeo_frontend.png?label=ready&title=Ready)](https://waffle.io/iingyeo/iingyeo_frontend)
 # Iingyeo_frontend
 Iingyeo frontend project is built with reactjs, reflux, react-router.
 
