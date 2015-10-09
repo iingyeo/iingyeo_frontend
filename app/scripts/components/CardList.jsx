@@ -67,6 +67,12 @@ var Card = React.createClass({
       backgroundRepeat: 'no-repeat'
     };
 
+    var tags = [];
+
+    for(var i = 0; i < this.props.card.tagSet.length; i++) {
+      tags.push(<span>#{this.props.card.tagSet[i]} </span>);
+    }
+
     return (
       /* beautify preserve:start */
       <div key={this.props.card.id} style={style}>
@@ -75,6 +81,7 @@ var Card = React.createClass({
           <button onClick={UIActions.showOverlay.bind(this,'childCardRegister', this.props.card.id)}>Reply({this.props.card.childCardCount})</button>
           <button onClick={this.handleLike}>Like({this.props.card.likeUserCount})</button>
         </div>
+        <div>{tags}</div>
       </div>
       /* beautify preserve:end */
     );
