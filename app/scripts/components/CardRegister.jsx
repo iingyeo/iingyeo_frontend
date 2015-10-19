@@ -15,6 +15,20 @@ var Modal = require('react-bootstrap').Modal;
 var ButtonToolbar = require('react-bootstrap').ButtonToolbar;
 
 var CardRegister = React.createClass({
+
+    getBackgroundImg: function (e) {
+
+        var imgs = [
+            'url(http://localhost:8080/img/1.jpg)',
+            'url(http://localhost:8080/img/2.jpg)',
+            'url(http://localhost:8080/img/3.jpg)',
+            'url(http://localhost:8080/img/4.jpg)'
+        ];
+        var ranIndex = Math.floor(Math.random() * 5);
+        React.findDOMNode(this.refs.backgroundUrl).style.backgroundImage = imgs[ranIndex];
+
+    },
+
     registerCard: function (e) {
         e.preventDefault();
 
@@ -65,7 +79,7 @@ var CardRegister = React.createClass({
                     <tr>
                         <td>
                             <ButtonToolbar>
-                                <Button>Create</Button>
+                                <Button onClick={this.getBackgroundImg}>Img</Button>
                                 <Button onClick={this.registerCard} bsStyle='primary'>Create</Button>
                             </ButtonToolbar>
 
